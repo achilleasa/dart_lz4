@@ -50,7 +50,10 @@ To build the extension you need to install [cmake](http://www.cmake.org/). The e
 be built on the following platforms:
 
 ## Linux and Mac
-```cmake --build .```
+```
+cmake .
+make
+```
 
 ## Windows
 

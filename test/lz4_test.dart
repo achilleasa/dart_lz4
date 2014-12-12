@@ -39,5 +39,22 @@ void main(List<String> args) {
       });
     });
 
+    test("compress and decompress string", () {
+      // Alternatively you can specify lz4.CompressionMode.HIGH for higher
+      // performance but less speed.
+      lz4.Lz4Codec codec = new lz4.Lz4Codec(mode : lz4.CompressionMode.FAST);
+
+      String test = '''Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                     nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                     officia deserunt mollit anim id est laborum.''';
+
+      // The compressor will *prepend* the original length to the compressed stream output
+      Uint8List compressed = codec.encode(new Uint8List.fromList(test.codeUnits));
+      Uint8List decompressed = codec.decode(compressed);
+      expect(new String.fromCharCodes(decompressed), equals(test));
+    });
   });
 }

@@ -40,7 +40,7 @@ To obtain access to the actual compressed data without reallocating memory you c
 
 ```dart
 Uint8List codecOutput = ...
-int uncompressedLen = new ByteData.view(compressed.buffer, 0, 4).getInt32(0);
+int uncompressedLen = new ByteData.view(compressed.buffer, 0, 4).getUInt32(0);
 Uint8List compressedData = new Uint8List.view(codecOutput.buffer, 4, codecOutput.lengthInBytes - 4);
 ```
 

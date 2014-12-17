@@ -63,6 +63,7 @@ void compress_wrapper(Dart_NativeArguments arguments) {
     intptr_t copmressedBytes = fastMode
             ? LZ4_compress(reinterpret_cast<char *>(uncompressedData), reinterpret_cast<char *>(compressedDataBuffer + PREFIX_PAD_BYTES), uncompressedLen)
             : LZ4_compressHC(reinterpret_cast<char *>(uncompressedData), reinterpret_cast<char *>(compressedDataBuffer + PREFIX_PAD_BYTES), uncompressedLen);
+    Dart_TypedDataReleaseData(listHandle);
     if (copmressedBytes <= 0) {
         delete[] compressedDataBuffer;
         Dart_ExitScope();
@@ -72,7 +73,6 @@ void compress_wrapper(Dart_NativeArguments arguments) {
     compressedDataBuffer[1] = (uncompressedLen >> 16) & 0xFF;
     compressedDataBuffer[2] = (uncompressedLen >> 8) & 0xFF;
     compressedDataBuffer[3] = uncompressedLen & 0xFF;
-    Dart_TypedDataReleaseData(listHandle);
 
     // Allocate new Uint8List for compressed data
     intptr_t compressedLen;
@@ -88,6 +88,7 @@ void compress_wrapper(Dart_NativeArguments arguments) {
 
     // Copy data to output list, cleanup tmp buffer and release handles
     memcpy(compressedData, compressedDataBuffer, compressedLen);
+    delete[] compressedDataBuffer;
     Dart_TypedDataReleaseData(compressedDataList);
     Dart_SetReturnValue(arguments, compressedDataList);
 
@@ -133,6 +134,7 @@ void decompress_wrapper(Dart_NativeArguments arguments) {
     int bytesWritten = LZ4_decompress_safe(reinterpret_cast<char *>(compressedData + PREFIX_PAD_BYTES), reinterpret_cast<char *>(decompressedDataBuffer), compressedLen - PREFIX_PAD_BYTES, decompressedDataLen);
     Dart_TypedDataReleaseData(listHandle);
     if (bytesWritten != decompressedDataLen) {
+        delete[] decompressedDataBuffer;
         Dart_ExitScope();
         HandleError(Dart_NewUnhandledExceptionError(Dart_NewStringFromCString("Decompression failed")));
     }
@@ -151,9 +153,11 @@ void decompress_wrapper(Dart_NativeArguments arguments) {
 
     // Copy data to output list, cleanup tmp buffer and release handles
     memcpy(decompressedData, decompressedDataBuffer, decompressedLen);
+    delete[] decompressedDataBuffer;
     Dart_TypedDataReleaseData(decompressedDataList);
     Dart_SetReturnValue(arguments, decompressedDataList);
 
+    Dart_ExitScope();
 }
 
 

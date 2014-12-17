@@ -82,7 +82,7 @@ dependencies:
 
 # Contributing
 
-See the [Contributing Guide](https://github.com/achilleasa/dart_cassandra_cql/blob/master/CONTRIBUTING.md).
+See the [Contributing Guide](https://github.com/achilleasa/dart_lz4/blob/master/CONTRIBUTING.md).
 
 
 # License

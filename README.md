@@ -46,8 +46,9 @@ Uint8List compressedData = new Uint8List.view(codecOutput.buffer, 4, codecOutput
 
 # Building the extension
 
-To build the extension you need to install [cmake](http://www.cmake.org/). The extension can
-be built on the following platforms:
+To build the extension you need to install [cmake](http://www.cmake.org/). If you have installed the
+dart-sdk at a non-standard location (e.g. you home directory) you need to set the ```DART_SDK``` env
+var to point to the dart-sdk folder. The extension can be built as follows:
 
 ## Linux and Mac
 ```
@@ -60,7 +61,7 @@ make
 Install [Microsoft Windows SDK for Windows 7](http://www.microsoft.com/en-us/download/details.aspx?id=8279)
 
 ```
-cmake . -G"Visual Studio 2010 Win64"
+cmake . -G"Visual Studio 10 2010 Win64"
 cmake --build . --config Release
 ```
 

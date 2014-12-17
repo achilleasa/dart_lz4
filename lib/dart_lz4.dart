@@ -9,20 +9,20 @@ Uint8List _compress(Uint8List data, [ bool fast = true ]) native "compress";
 
 Uint8List _decompress(Uint8List data) native "decompress";
 
-class _LZ4Encoder extends Converter<Uint8List, Uint8List> {
+class _Lz4Encoder extends Converter<Uint8List, Uint8List> {
 
   final bool _fast;
 
-  const _LZ4Encoder(this._fast);
+  const _Lz4Encoder(this._fast);
 
   Uint8List convert(Uint8List input) => _compress(input, _fast);
 }
 
-class _LZ4Decoder extends Converter<Uint8List, Uint8List> {
+class _Lz4Decoder extends Converter<Uint8List, Uint8List> {
 
   Uint8List convert(Uint8List input) => _decompress(input);
 
-  const _LZ4Decoder();
+  const _Lz4Decoder();
 }
 
 class CompressionMode {
@@ -39,12 +39,12 @@ class Lz4Codec extends Codec<Uint8List, Uint8List> {
 
   Converter<Uint8List, Uint8List> _encoder;
 
-  final Converter<Uint8List, Uint8List> _decoder = const _LZ4Decoder();
+  final Converter<Uint8List, Uint8List> _decoder = const _Lz4Decoder();
 
   Lz4Codec({CompressionMode mode : CompressionMode.FAST}) : super() {
     _encoder = mode == CompressionMode.FAST
-               ? const _LZ4Encoder(true)
-               : const _LZ4Encoder(false);
+               ? const _Lz4Encoder(true)
+               : const _Lz4Encoder(false);
   }
 
   Converter<Uint8List, Uint8List> get encoder => _encoder;

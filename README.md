@@ -40,14 +40,15 @@ To obtain access to the actual compressed data without reallocating memory you c
 
 ```dart
 Uint8List codecOutput = ...
-int uncompressedLen = new ByteData.view(compressed.buffer, 0, 4).getInt32(0);
+int uncompressedLen = new ByteData.view(codecOutput.buffer, 0, 4).getUInt32(0);
 Uint8List compressedData = new Uint8List.view(codecOutput.buffer, 4, codecOutput.lengthInBytes - 4);
 ```
 
 # Building the extension
 
-To build the extension you need to install [cmake](http://www.cmake.org/). The extension can
-be built on the following platforms:
+To build the extension you need to install [cmake](http://www.cmake.org/). If you have installed the
+dart-sdk at a non-standard location (e.g. you home directory) you need to set the ```DART_SDK``` env
+var to point to the dart-sdk folder. The extension can be built as follows:
 
 ## Linux and Mac
 ```
@@ -60,7 +61,7 @@ make
 Install [Microsoft Windows SDK for Windows 7](http://www.microsoft.com/en-us/download/details.aspx?id=8279)
 
 ```
-cmake . -G"Visual Studio 2010 Win64"
+cmake . -G"Visual Studio 10 2010 Win64"
 cmake --build . --config Release
 ```
 
@@ -82,7 +83,7 @@ dependencies:
 
 # Contributing
 
-See the [Contributing Guide](https://github.com/achilleasa/dart_cassandra_cql/blob/master/CONTRIBUTING.md).
+See the [Contributing Guide](https://github.com/achilleasa/dart_lz4/blob/master/CONTRIBUTING.md).
 
 
 # License

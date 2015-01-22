@@ -47,7 +47,7 @@ Uint8List compressedData = new Uint8List.view(codecOutput.buffer, 4, codecOutput
 # Building the extension
 
 To build the extension you need to install [cmake](http://www.cmake.org/). If you have installed the
-dart-sdk at a non-standard location (e.g. you home directory) you need to set the ```DART_SDK``` env
+dart-sdk at a non-standard location (e.g. your home directory) you need to set the ```DART_SDK``` env
 var to point to the dart-sdk folder. The extension can be built as follows:
 
 ## Linux and Mac
@@ -70,8 +70,7 @@ cmake --build . --config Release
 Precompiled 64-bit binaries for linux, mac and windows can be obtained by downloading
 the latest binary [release](https://github.com/achilleasa/dart_lz4/releases/latest) from github or by checking out the [master-binaries](https://github.com/achilleasa/dart_lz4/tree/master-binaries) branch.
 
-You may also directly checkout the master-binaries branch by adding the following to your
-```pubspec.yaml``` file:
+To fetch the  master-binaries branch add the following to your ```pubspec.yaml``` file:
 
 ```yaml
 dependencies:

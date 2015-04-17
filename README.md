@@ -1,6 +1,7 @@
 # Dart lz4
 
 [![Build Status](https://drone.io/github.com/achilleasa/dart_lz4/status.png)](https://drone.io/github.com/achilleasa/dart_lz4/latest)
+[![Coverage Status](https://coveralls.io/repos/achilleasa/dart_lz4/badge.svg)](https://coveralls.io/r/achilleasa/dart_lz4)
 
 Dart native extension for the [LZ4 codec](https://github.com/Cyan4973/lz4).
 
